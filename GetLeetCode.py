@@ -1,9 +1,15 @@
+'''
+    This is the brutal way to get the AC code from leetcode. And as it should be, the server has
+    fobided booming access. Anyway, mission failed, once.
+'''
+
 import urllib.request
 import urllib.parse
 import urllib.error
 import http.cookiejar
 import re
 import threading
+import threadpool
 import time
 
 user = "gaofeijin"
@@ -39,14 +45,14 @@ def getpage(page):
         
 if __name__ == '__main__':
     login()
-    thread = list()
-    for i in range(57856709,57859709):
-        t = threading.Thread(target=getpage,args=(i,))
-        thread.append(t)
+    threads = list()
+    for i in range(57856709,57866709):
+        threads.append(threading.Thread(target = getpage, args = (i,)))
 
-    for i in range(0,500):
-        thread[i].start()
-       #if i%50 == 0:
-            #time.sleep(1)
-    for i in range(0,500):
-        thread[i].join()
+    for i in range(0,10000):
+        threads[i].start()
+
+    for i in range(0,10000):
+        threads[i].join()
+        
+    
